@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../headers/Adapter.hpp
+SFML/Graphics.hpp
+-
+SFML/OpenGL.hpp
+-
+utility
+-
+
+../headers/GraphicEditor.hpp
+UIBasic.hpp
+../headers/UIBasic.hpp
+
+../headers/UIBasic.hpp
+Adapter.hpp
+../headers/Adapter.hpp
+list
+-
+
+/home/tixon/Рабочий стол/vscode/editor/definitions/GraphicEditor.cpp
+./headers/GraphicEditor.hpp
+/home/tixon/Рабочий стол/vscode/editor/definitions/headers/GraphicEditor.hpp
+random
+-
+time.h
+-
+

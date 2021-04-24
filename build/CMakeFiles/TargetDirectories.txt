@@ -1,0 +1,3 @@
+/home/tixon/Рабочий стол/vscode/editor/build/CMakeFiles/rebuild_cache.dir
+/home/tixon/Рабочий стол/vscode/editor/build/CMakeFiles/edit_cache.dir
+/home/tixon/Рабочий стол/vscode/editor/build/CMakeFiles/main.dir
