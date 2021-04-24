@@ -462,6 +462,11 @@ Brush::Brush() {
     texture_descriptor = AdapterSFML::LoadTexture("../assets/brush.jpg");
     SetOptionals *radia = new SetOptionals;
 
+    SetColorFrg({180, 180, 180});
+    SetNormalColor({240, 220, 220});
+    SetHoveredColor({220, 200, 200});
+    SetPressedColor({180, 180, 180});
+
     Optional *width20 = new Optional;
     width20->SetPressedColor({100, 100, 100});
     width20->SetNormalColor({140, 140, 140});
@@ -530,6 +535,11 @@ Eraser::Eraser() {
     current_color = EraseColor;
     texture_descriptor = AdapterSFML::LoadTexture("../assets/eraser.png");
     SetTexture(texture_descriptor);
+    SetColorFrg({180, 180, 180});
+    SetNormalColor({240, 220, 220});
+    SetHoveredColor({220, 200, 200});
+    SetPressedColor({180, 180, 180});
+
 }
 void Eraser::SetToolColor(const Color &color) {}
 void Eraser::StartApplication(Canvas *canvas, int x, int y, Color &color, std::vector<SettingU> settings) {
@@ -702,6 +712,10 @@ DrawManager::DrawManager() {
 
     save->SetTexture(AdapterSFML::LoadTexture("../assets/savepic.png"));
     save->SetPosition(330, 400);
+    save->SetColorFrg({220, 220, 220});
+    save->SetNormalColor({220, 220, 220});
+    save->SetHoveredColor({220, 200, 200});
+    save->SetPressedColor({220, 180, 180});
     save->SetSize(70, 70);
 
     LinkChild(save);
@@ -716,6 +730,10 @@ DrawManager::DrawManager() {
 
     load->SetTexture(AdapterSFML::LoadTexture("../assets/loadpic.jpeg"));
     load->SetPosition(260, 400);
+    load->SetColorFrg({220, 220, 220});
+    load->SetNormalColor({220, 220, 220});
+    load->SetHoveredColor({220, 200, 200});
+    load->SetPressedColor({220, 180, 180});
     load->SetSize(70, 70);
 
     LinkChild(load);
