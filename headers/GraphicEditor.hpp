@@ -108,7 +108,6 @@ class ColorPaletteManager : public ContainerW, public ShapeRect {
     ScrollBar *Value_Scrollbar = nullptr;
     ColorPalette *Palette = nullptr;
 
-
     HSVInput *HSVFields[3];
     RGBInput *RGBFields[3];
 
@@ -131,7 +130,6 @@ public:
     Color GetCurrColor();
     Color GetRGB() const;
     bool IsInputEmpty() const;
-
 };
 
 class AbsTool;
@@ -160,7 +158,6 @@ public:
 
     uint32_t *GetBimage();
     void draw() override;
-
 };
 
 union SettingU {

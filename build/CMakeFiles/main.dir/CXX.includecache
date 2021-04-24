@@ -14,6 +14,10 @@ SFML/OpenGL.hpp
 utility
 -
 
+../headers/Application.hpp
+GraphicEditor.hpp
+../headers/GraphicEditor.hpp
+
 ../headers/GraphicEditor.hpp
 UIBasic.hpp
 ../headers/UIBasic.hpp
@@ -24,6 +28,10 @@ Adapter.hpp
 list
 -
 
+/home/tixon/Рабочий стол/vscode/editor/definitions/Application.cpp
+./headers/Application.hpp
+/home/tixon/Рабочий стол/vscode/editor/definitions/headers/Application.hpp
+
 /home/tixon/Рабочий стол/vscode/editor/definitions/GraphicEditor.cpp
 ./headers/GraphicEditor.hpp
 /home/tixon/Рабочий стол/vscode/editor/definitions/headers/GraphicEditor.hpp
@@ -31,4 +39,34 @@ random
 -
 time.h
 -
+
+/home/tixon/Рабочий стол/vscode/editor/definitions/UIBasic.cpp
+./headers/UIBasic.hpp
+/home/tixon/Рабочий стол/vscode/editor/definitions/headers/UIBasic.hpp
+
+/home/tixon/Рабочий стол/vscode/editor/headers/Adapter.hpp
+SFML/Graphics.hpp
+-
+SFML/OpenGL.hpp
+-
+utility
+-
+
+/home/tixon/Рабочий стол/vscode/editor/headers/Application.hpp
+GraphicEditor.hpp
+/home/tixon/Рабочий стол/vscode/editor/headers/GraphicEditor.hpp
+
+/home/tixon/Рабочий стол/vscode/editor/headers/GraphicEditor.hpp
+UIBasic.hpp
+/home/tixon/Рабочий стол/vscode/editor/headers/UIBasic.hpp
+
+/home/tixon/Рабочий стол/vscode/editor/headers/UIBasic.hpp
+Adapter.hpp
+/home/tixon/Рабочий стол/vscode/editor/headers/Adapter.hpp
+list
+-
+
+/home/tixon/Рабочий стол/vscode/editor/main.cpp
+headers/Application.hpp
+/home/tixon/Рабочий стол/vscode/editor/headers/Application.hpp
 

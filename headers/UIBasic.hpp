@@ -19,7 +19,6 @@ public:
 
 };
 
-
 class ShapeRect {
 protected:
     float left = 0;
@@ -93,6 +92,8 @@ public:
 
 //AbsButton shouldnt inherit any shape but as all its subclasses have the same shape, i've simplified it
 class AbsB : public ContainerW, public ShapeRect {
+public:
+    enum STATE {NORMAL, PRESSED, HOVERED};
 protected:
 
     //There are some objects which have field "active". It would be better to
@@ -103,23 +104,17 @@ protected:
     virtual void SwitchToN();
     virtual void SwitchToH();
     virtual void SwitchToP();
-
+    STATE state;
 public:
     void HandleEvent(const Event &event) override;
     virtual void PressImpact(const Event &event);
     virtual void MoveImpact (const Event &event);
     virtual void ClickImpact();
     virtual void ClickOutsideImpact();
-
     void ResetTexture();
     void SetTexture(int64_t descriptor);
     uint32_t GetDescr() const;
-
     void draw() override;
-
-    enum STATE {NORMAL, PRESSED, HOVERED};
-    STATE state;
-
     bool IsHovered       (const Event &event) const;
     bool IsPressed       (const Event &event) const;
     bool IsReleased      (const Event &event) const;
@@ -127,6 +122,9 @@ public:
     bool IsPressedOutside(const Event &event) const;
 
     STATE GetState() const ;
+    void SetState(STATE state) {
+        this->state = state; 
+    }
     AbsB();
 };
 
@@ -138,7 +136,9 @@ protected:
     Color colorN = {255, 255, 255};
     Color colorP = {200, 200, 200};
     Color colorH = {255, 255, 255};
-
+    void SwitchToN() override;
+    void SwitchToH() override;
+    void SwitchToP() override;
 public:
     InputBox();
     Text &GetText();
@@ -151,16 +151,11 @@ public:
     void ClickOutsideImpact() override;
 
     bool IsActive() const;
-
-    void SwitchToN() override;
-    void SwitchToH() override;
-    void SwitchToP() override;
 };
 
 class Slider : public AbsB {
 protected:
-
-
+    friend class ScrollBar;
     Color colorN = {255, 0, 0};
     Color colorH = {255, 0, 0};
     Color colorP = {255, 0, 0};
@@ -169,60 +164,49 @@ protected:
     float SliderPositionBeforeSliding;
 
     bool horizontal;
+    void MoveImpact (const Event &event) override;
+    void PressImpact(const Event &event) override;
+    void CorrectBorders();
 public:
     float lefttopborder = 0;
     float rightdownborder = 100;
-    friend class Scrollbar;
 
-    //Slider();
     //sets slider in position where mouse is situated
     void SetPositionAlong(const Event &event);
     //sets slider position relatibely its lefttop border
     void SetPositionRel(float coordinate);
-
     void SetPressedColor(const Color &color);
     void SetNormalColor (const Color &color);
     void SetHoveredColor(const Color &color);
     void SetHorizontal  (bool horizontal);
 
-    void MoveImpact (const Event &event) override;
-    void PressImpact(const Event &event) override;
-
     void draw() override;
-
-    void CorrectBorders();
 };
-
 
 class ScrollBar : public AbsB {
 protected:
     friend Slider;
-    
+
     float length;
     bool horizontal;
     Slider slider;
+    void PressImpact(const Event &event) override;
+    void MoveImpact (const Event &event) override;
 public:
-
     float GetLen() const;
     //const Slider &GetSlider() const;
     //Slider &GetSlider();
     void SetSliderSize(float x, float y);
     ScrollBar(bool horizontal, float length, float width);
-    void PressImpact(const Event &event) override;
-    void MoveImpact (const Event &event) override;
     bool IsOnSlider (const Event &event);
-
     //set left top position of the whole scrollbar and align its slider
     void SetSlider(float x, float y);
     const Slider &GetSlider() const;
     void draw() override;
-
     float GetOffsetRelScrollbarStart() const;
-
     void SetSliderPressedColor(const Color &color);
     void SetSliderNormalColor (const Color &color);
     void SetSliderHoveredColor(const Color &color);
-
     void SetPositionRel(float coordinate);
 };
 
@@ -230,23 +214,17 @@ class View : public ContainerW {
 protected:
     int left;
     int top;
-
     int width;
     int height;
-
 public:
     void SetPosition(int left, int top);
     void SetSize(int width, int height);
-
-
     void draw() override;
 };
 
 
 class ModalW : public ContainerW, public ShapeRect {
-
     bool invoked;
-
 public:
     ModalW();
     virtual void Action() {} 
@@ -260,9 +238,8 @@ public:
 };
 
 class ModalWManager : public ContainerW {
-
     ModalW *modal = nullptr;
-    public:
+public:
     void SetModalW(ModalW *mw) {
         modal = mw;
     }
@@ -280,18 +257,16 @@ protected:
     Color colorH = {255, 0, 0};
     Color colorP = {255, 0, 0};
 
+    void SwitchToN() override;
+    void SwitchToH() override;
+    void SwitchToP() override;
+
 public:
     UsualB();
     void SetPressedColor(const Color &color);
     void SetNormalColor (const Color &color);
     void SetHoveredColor(const Color &color);
-
-    void SwitchToN() override;
-    void SwitchToH() override;
-    void SwitchToP() override;
-
+    void draw() override;
     Text &GetTitle();
     const Text &GetTitle() const;
-
-    void draw() override;
 };
