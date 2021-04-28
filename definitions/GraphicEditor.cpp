@@ -137,7 +137,7 @@ void ColorPaletteManager::ColorPalette::PressImpact(const Event &event) {
     if (event.mouse.y >= top && event.mouse.y <= top + height)
         SetYPointerPosition(event.mouse.y);
 
-    static_cast<ColorPaletteManager*>(parent)->PaletteInfluencesOnInput();
+    static_cast<ColorPaletteManager*>(parent)->UpdateInput();
 
 }
 void ColorPaletteManager::ColorPalette::MoveImpact(const Event &event) {
@@ -146,12 +146,12 @@ void ColorPaletteManager::ColorPalette::MoveImpact(const Event &event) {
     if (event.mouse.y >= top && event.mouse.y <= top + height)
         SetYPointerPosition(event.mouse.y);
 
-    static_cast<ColorPaletteManager*>(parent)->PaletteInfluencesOnInput();
+    static_cast<ColorPaletteManager*>(parent)->UpdateInput();
 }
 
 
 //modify all input boxes if palette has been modified
-void ColorPaletteManager::PaletteInfluencesOnInput() {
+void ColorPaletteManager::UpdateInput() {
 
     HSV hsvcolor = {Palette->GetHue(), Palette->GetSaturation(), Palette->GetValue()};
     Color newcolor = HSVRGB::HSVtoRGB(hsvcolor.hue, hsvcolor.sat, hsvcolor.val);
@@ -169,7 +169,7 @@ void ColorPaletteManager::PaletteInfluencesOnInput() {
     RGBFields[2]->GetText().SetMessage(std::to_string(newcolor.blue));
 }
 
-void ColorPaletteManager::PaletteChange() {
+void ColorPaletteManager::UpdatePalette() {
 
     HSV hsvcolor = GetHSV();
     Palette->SetXPointerPosition(static_cast<int>(Palette->GetWidth() * hsvcolor.hue / 360 + Palette->GetLeft()));
@@ -202,7 +202,7 @@ void ColorPaletteManager::ColorPalette::PickColor() {
 }
 
 //change RGB variables if HSV parameters has been modified
-void ColorPaletteManager::RGBInfluencesOnHSV() {
+void ColorPaletteManager::UpdateHSV() {
 
     Color rgbcolor = GetRGB();
 
@@ -217,7 +217,7 @@ void ColorPaletteManager::RGBInfluencesOnHSV() {
 }
 
 //change HSV variables if RGB parameters has been modified
-void ColorPaletteManager::HSVInfluencesOnRGB() {
+void ColorPaletteManager::UpdateRGB() {
 
     HSV hsvcolor = GetHSV();
 
@@ -245,12 +245,12 @@ void ColorPaletteManager::HandleEvent(const Event &event) {
     ContainerW::HandleEvent(event);
 
     if (Value_Scrollbar->GetState() == AbsB::STATE::PRESSED) {
-        ValueChanger();
-        HSVInfluencesOnRGB();
+        UpdateValues();
+        UpdateRGB();
     }
 
     if (Palette->GetState() == AbsB::STATE::PRESSED) {
-        PaletteInfluencesOnInput();
+        UpdateInput();
     }
     Palette->PickColor();            
 }
@@ -319,7 +319,7 @@ ColorPaletteManager::ColorPaletteManager() {
         BoxNames[i].SetPosition(x_HSVBoxStart + 4, y_HSVBoxStart + i * HSVBox_space + 6);
         LinkChild(RGBFields[i - 3]);
     }
-    PaletteInfluencesOnInput();
+    UpdateInput();
     
 
     LinkChild(Value_Scrollbar);
@@ -335,7 +335,7 @@ void ColorPaletteManager::draw() {
     }
 }
 //changes V - Value in HSV
-void ColorPaletteManager::ValueChanger() {
+void ColorPaletteManager::UpdateValues() {
     float diff = Value_Scrollbar->GetOffsetRelScrollbarStart();
     float part = diff / Value_Scrollbar->GetLen();
 
